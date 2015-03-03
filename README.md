@@ -1,3 +1,3 @@
 Password Scheme
-COMP 3008
-Human Computer Interaction
+\nCOMP 3008
+\nHuman Computer Interaction
