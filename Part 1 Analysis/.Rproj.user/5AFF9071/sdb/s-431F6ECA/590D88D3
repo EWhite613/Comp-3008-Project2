@@ -1,0 +1,17 @@
+{
+    "contents" : "mydata <- read.csv(\"House28_log.csv\", sep=\",\")\n",
+    "created" : 1426177650096.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3983529106",
+    "id" : "590D88D3",
+    "lastKnownWriteTime" : 1426178953,
+    "path" : "~/GitHub/Comp-3008-Project2/Part 1 Analysis/Anaylze.R",
+    "project_path" : "Anaylze.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
