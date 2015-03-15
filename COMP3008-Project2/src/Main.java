@@ -55,18 +55,31 @@ public class Main {
 		frmLogin.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
-		JButton btnSubmit = new JButton("Submit");
+		JButton btnSubmit = new JButton("Login");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				login();
 			}
 		});
-		btnSubmit.setBounds(155, 118, 89, 23);
+		btnSubmit.setBounds(233, 117, 89, 23);
 		frmLogin.getContentPane().add(btnSubmit);
+		
+		JButton btnRegister = new JButton("Register");
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				register();
+			}
+		});
+		btnRegister.setBounds(109, 117, 89, 23);
+		frmLogin.getContentPane().add(btnRegister);
 	}
 	
 	public void login(){
 		PasswordScheme p = new PasswordScheme(txtUsername.getText());
 		p.setVisible(true);
+	}
+	public void register(){
+		RegisterPassword r = new RegisterPassword(txtUsername.getText());
+		r.setVisible(true);
 	}
 }
