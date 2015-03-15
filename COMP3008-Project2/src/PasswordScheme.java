@@ -14,11 +14,14 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class PasswordScheme extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel GridPanel;
 	private String user;
 
 	/**
@@ -45,10 +48,29 @@ public class PasswordScheme extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(10, 8, 3, 3));
+		contentPane.setLayout(null);
+		
+		GridPanel = new JPanel();
+		GridPanel.setBounds(10, 11, 414, 212);
+		contentPane.add(GridPanel);
+		GridPanel.setLayout(new GridLayout(10, 8, 3, 3));
+		
+		JLabel lblResult = new JLabel("Result: ");
+		lblResult.setBounds(270, 234, 46, 14);
+		contentPane.add(lblResult);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnSubmit.setBounds(74, 230, 89, 23);
+		contentPane.add(btnSubmit);
 		user = username;
 		this.setTitle("User: " + user);
 		GenerateTable();
+		
 		
 	}
 	
@@ -58,7 +80,8 @@ public class PasswordScheme extends JFrame {
             //JLabel l = new JLabel(new ImageIcon("image_file.png"), JLabel.CENTER);
             l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
             l.setFont(l.getFont().deriveFont(20f));
-            contentPane.add(l);
+            l.addMouseListener(new GridMouseListener(i, l));
+            GridPanel.add(l);
         }	
 	}
 }
