@@ -10,10 +10,10 @@ import javax.swing.border.BevelBorder;
 public class GridMouseListener extends MouseAdapter {
 	
 	 private final int index;
-	 private final JLabel label;
+	 private final SelectableLabel label;
 	 private boolean selected;
 
-	    public GridMouseListener(int index, JLabel label) {
+	    public GridMouseListener(int index, SelectableLabel label) {
 	        this.index = index;
 	        this.label = label;
 	        this.selected = false;
@@ -23,21 +23,13 @@ public class GridMouseListener extends MouseAdapter {
 	    public void mouseClicked(MouseEvent e){
 	    	if (selected == false){
 	    		label.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLUE, Color.BLUE));
+	    		label.selected = true;
 	    		selected = true;
 	    	}else{
 	    		label.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 	    		selected = false;
+	    		label.selected = false;
 	    	}
-	    }
-	    
-	    @Override
-	    public void mouseEntered(MouseEvent e) {
-	        System.out.println("Mouse entered for Label  " + index);
-	    }
-
-	    @Override
-	    public void mouseExited(MouseEvent e) {
-	        System.out.println("Mouse exited for Label " + index);
 	    }
 
 }
