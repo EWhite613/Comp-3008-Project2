@@ -51,7 +51,7 @@ public class RegisterPassword extends JFrame {
 	 * Create the frame.
 	 */
 	public RegisterPassword(String username) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -100,8 +100,15 @@ public class RegisterPassword extends JFrame {
 	public void GeneratePassword(){
 		password = new int[6];
 		Random randomGenerator = new Random();
+		boolean con = true;
+		int randomInt = 0;
 	    for (int idx = 0; idx < 6; ++idx){
-	      int randomInt = randomGenerator.nextInt(80);
+	      while (con == true){
+	    	 randomInt = randomGenerator.nextInt(80);
+	    	 if (contains(password, randomInt) == false){
+	    		 break;
+	    	 }
+	      }
 	      password[idx] = randomInt;
 	    }
 	    System.out.println(Arrays.toString(password));
@@ -138,6 +145,15 @@ public class RegisterPassword extends JFrame {
 		}else{
 			JOptionPane.showMessageDialog(this,"You must first generate a password");
 		}
+	}
+	
+	public boolean contains(int[] arr, int i){
+		for (int e : arr){
+			if(e == i){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
