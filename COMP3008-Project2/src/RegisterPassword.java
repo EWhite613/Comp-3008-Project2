@@ -52,14 +52,14 @@ public class RegisterPassword extends JFrame {
 	 */
 	public RegisterPassword(String username) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 743, 490);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		GridPanel = new JPanel();
-		GridPanel.setBounds(10, 11, 414, 212);
+		GridPanel.setBounds(10, 11, 707, 399);
 		contentPane.add(GridPanel);
 		GridPanel.setLayout(new GridLayout(10, 8, 3, 3));
 		
@@ -69,7 +69,7 @@ public class RegisterPassword extends JFrame {
 				Submit(username, password);
 			}
 		});
-		btnSubmit.setBounds(226, 227, 89, 23);
+		btnSubmit.setBounds(520, 417, 89, 23);
 		contentPane.add(btnSubmit);
 		
 		btnGeneratePassword = new JButton("Generate Password");
@@ -78,7 +78,7 @@ public class RegisterPassword extends JFrame {
 				GeneratePassword();
 			}
 		});
-		btnGeneratePassword.setBounds(55, 227, 136, 23);
+		btnGeneratePassword.setBounds(173, 417, 136, 23);
 		contentPane.add(btnGeneratePassword);
 		user = username;
 		labels = new JLabel[80];

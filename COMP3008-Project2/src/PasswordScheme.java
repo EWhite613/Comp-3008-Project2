@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class PasswordScheme extends JFrame {
@@ -56,42 +57,27 @@ public class PasswordScheme extends JFrame {
 	 * Create the frame.
 	 */
 	public PasswordScheme(String username) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 743, 490);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		GridPanel = new JPanel();
+		GridPanel.setBounds(10, 11, 722, 416);
 		GridPanel.setLayout(new GridLayout(10, 8, 3, 3));
 		
-		
-		
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(311, 433, 89, 23);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Submit();
 			}
 		});
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(5)
-					.addComponent(GridPanel, GroupLayout.PREFERRED_SIZE, 414, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(69)
-					.addComponent(btnSubmit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(6)
-					.addComponent(GridPanel, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
-					.addGap(7)
-					.addComponent(btnSubmit))
-		);
-		contentPane.setLayout(gl_contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(GridPanel);
+		contentPane.add(btnSubmit);
 		user = username;
 		this.setTitle("User: " + user);
 		labels = new SelectableLabel[80];
