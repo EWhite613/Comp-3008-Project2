@@ -142,6 +142,7 @@ public class RegisterPassword extends JFrame {
 	    		}catch(SQLException ex){
 	    			ex.printStackTrace();
 	    		}
+			this.dispose();
 		}else{
 			JOptionPane.showMessageDialog(this,"You must first generate a password");
 		}
