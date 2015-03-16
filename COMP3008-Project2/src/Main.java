@@ -2,10 +2,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class Main {
@@ -75,8 +82,30 @@ public class Main {
 	}
 	
 	public void login(){
-		PasswordScheme p = new PasswordScheme(txtUsername.getText());
-		p.setVisible(true);
+		try{
+    		//HARD CODED DATABASE NAME:
+    		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2");
+    	       //create a statement object which will be used to relay a
+    	       //sql query to the database
+    		PreparedStatement prep = database.prepareStatement(
+		            "Select Password From UserAccounts where Username=?;");
+    		
+    		prep.setString(1, txtUsername.getText());
+    		ResultSet rs = prep.executeQuery();
+    		
+    		
+    		if (!rs.next()){
+    			JOptionPane.showMessageDialog(frmLogin, "You must first register a password for this user.");
+    		}else{
+    			PasswordScheme p = new PasswordScheme(txtUsername.getText());
+    			p.setVisible(true);
+    		}
+    		}catch(SQLException ex){
+    			ex.printStackTrace();
+    			
+    		}
+		
+		
 	}
 	public void register(){
 		RegisterPassword r = new RegisterPassword(txtUsername.getText());
