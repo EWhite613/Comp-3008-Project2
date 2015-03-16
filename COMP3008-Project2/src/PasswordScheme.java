@@ -25,6 +25,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 
 public class PasswordScheme extends JFrame {
@@ -34,6 +36,7 @@ public class PasswordScheme extends JFrame {
 	public SelectableLabel labels[];
 	private String user;
 	private int[] password;
+	public ImageCollection images;
 	/**
 	 * Launch the application.
 	 */
@@ -58,11 +61,8 @@ public class PasswordScheme extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		GridPanel = new JPanel();
-		GridPanel.setBounds(10, 11, 414, 212);
-		contentPane.add(GridPanel);
 		GridPanel.setLayout(new GridLayout(10, 8, 3, 3));
 		
 		
@@ -73,11 +73,29 @@ public class PasswordScheme extends JFrame {
 				Submit();
 			}
 		});
-		btnSubmit.setBounds(74, 230, 89, 23);
-		contentPane.add(btnSubmit);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(5)
+					.addComponent(GridPanel, GroupLayout.PREFERRED_SIZE, 414, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(69)
+					.addComponent(btnSubmit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(6)
+					.addComponent(GridPanel, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
+					.addGap(7)
+					.addComponent(btnSubmit))
+		);
+		contentPane.setLayout(gl_contentPane);
 		user = username;
 		this.setTitle("User: " + user);
 		labels = new SelectableLabel[80];
+		images = new ImageCollection();
 		GenerateTable();
 		password = getUserPassword(user);
 		System.out.println(Arrays.toString(password));
@@ -87,7 +105,7 @@ public class PasswordScheme extends JFrame {
 	public void GenerateTable(){
 		for (int i = 0; i < 80; i++) {
 			SelectableLabel l = new SelectableLabel("" + i, SelectableLabel.CENTER);
-            //SelectableLabel l = new SelectableLabel(new ImageIcon("image_file.png"), SelectableLabel.CENTER);
+            //SelectableLabel l = new SelectableLabel(images.array.get(i), SelectableLabel.CENTER);
             l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
             l.setFont(l.getFont().deriveFont(20f));
             l.addMouseListener(new GridMouseListener(i, l));

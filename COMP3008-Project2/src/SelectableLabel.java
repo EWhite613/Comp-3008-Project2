@@ -1,3 +1,4 @@
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class SelectableLabel extends JLabel {
@@ -8,6 +9,11 @@ public class SelectableLabel extends JLabel {
 	}
 	
 	public SelectableLabel(String s, int i){
+		super(s, i);
+		selected=false;
+	}
+	
+	public SelectableLabel(ImageIcon s, int i){
 		super(s, i);
 		selected=false;
 	}
