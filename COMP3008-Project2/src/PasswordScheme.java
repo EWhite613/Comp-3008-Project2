@@ -148,7 +148,7 @@ public class PasswordScheme extends JFrame {
 			Flag l = flags[i];
 			if (l.selected == true){
 				//selected
-				if (count > 6){
+				if (count > 5){
 					return false;
 				}else{
 					result[count] = i;
