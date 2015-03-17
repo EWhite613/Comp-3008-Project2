@@ -60,7 +60,7 @@ public class PasswordScheme extends JFrame {
 	 */
 	public PasswordScheme(String username, String dom) {
 		System.out.println("Domain is " + dom);
-		setResizable(false);
+		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1215, 844);
 		contentPane = new JPanel();
