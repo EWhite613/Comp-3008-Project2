@@ -59,17 +59,17 @@ public class PasswordScheme extends JFrame {
 	public PasswordScheme(String username) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 743, 490);
+		setBounds(100, 100, 835, 594);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		GridPanel = new JPanel();
-		GridPanel.setBounds(10, 11, 722, 416);
+		GridPanel.setBounds(10, 11, 809, 512);
 		GridPanel.setLayout(new GridLayout(10, 8, 3, 3));
 		
 		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(311, 433, 89, 23);
+		btnSubmit.setBounds(366, 531, 89, 23);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Submit();
@@ -90,8 +90,8 @@ public class PasswordScheme extends JFrame {
 	
 	public void GenerateTable(){
 		for (int i = 0; i < 80; i++) {
-			SelectableLabel l = new SelectableLabel("" + i, SelectableLabel.CENTER);
-            //SelectableLabel l = new SelectableLabel(images.array.get(i), SelectableLabel.CENTER);
+			//SelectableLabel l = new SelectableLabel("" + i, SelectableLabel.CENTER);
+            SelectableLabel l = new SelectableLabel(images.array.get(i), SelectableLabel.CENTER);
             l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
             l.setFont(l.getFont().deriveFont(20f));
             l.addMouseListener(new GridMouseListener(i, l));
