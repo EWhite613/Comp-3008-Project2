@@ -68,11 +68,11 @@ public class PasswordScheme extends JFrame {
 		setContentPane(contentPane);
 		
 		GridPanel = new JPanel();
-		GridPanel.setBounds(10, 11, 1175, 675);
+		GridPanel.setBounds(10, 11, 1159, 661);
 		GridPanel.setLayout(new GridLayout(10, 8, 3, 3));
 		
 		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(511, 697, 89, 23);
+		btnSubmit.setBounds(508, 677, 89, 23);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Submit();
