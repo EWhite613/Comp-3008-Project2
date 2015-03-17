@@ -22,11 +22,11 @@ public class GridMouseListener extends MouseAdapter {
 	    @Override
 	    public void mouseClicked(MouseEvent e){
 	    	if (selected == false){
-	    		flag.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLUE, Color.BLUE));
+	    		flag.lblImage.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLUE, Color.BLUE));
 	    		flag.selected = true;
 	    		selected = true;
 	    	}else{
-	    		flag.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+	    		flag.lblImage.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 	    		selected = false;
 	    		flag.selected = false;
 	    	}
