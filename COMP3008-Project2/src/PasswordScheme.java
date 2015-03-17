@@ -145,7 +145,7 @@ public class PasswordScheme extends JFrame {
 		int[] result = new int[6];
 		int count = 0;
 		for(int i=0;i<80;i++){
-			SelectableLabel l = labels[i];
+			Flag l = flags[i];
 			if (l.selected == true){
 				//selected
 				if (count > 6){
