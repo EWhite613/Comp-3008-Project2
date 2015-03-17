@@ -21,6 +21,4 @@ public class ImageCollection {
 			array.add(new ImageIcon(f.getAbsolutePath()));
 		}
 	}
-	
-
 }
