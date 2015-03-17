@@ -97,8 +97,11 @@ public class Main {
     		if (!rs.next()){
     			JOptionPane.showMessageDialog(frmLogin, "You must first register a password for this user.");
     		}else{
-    			PasswordScheme p = new PasswordScheme(txtUsername.getText());
-    			p.setVisible(true);
+    			//PasswordScheme p = new PasswordScheme(txtUsername.getText());
+    			//p.setVisible(true);
+    			DomainChooser d = new DomainChooser(txtUsername.getText());
+    			d.setVisible(true);
+    			
     		}
     		}catch(SQLException ex){
     			ex.printStackTrace();

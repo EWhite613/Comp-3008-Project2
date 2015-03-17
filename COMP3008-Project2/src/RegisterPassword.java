@@ -20,6 +20,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import java.util.Arrays;
+import javax.swing.JTextField;
 
 
 public class RegisterPassword extends JFrame {
@@ -30,6 +31,7 @@ public class RegisterPassword extends JFrame {
 	private JButton btnGeneratePassword;
 	public JLabel labels[];
 	private int password[];
+	private JTextField txtDomain;
 
 	/**
 	 * Launch the application.
@@ -66,10 +68,10 @@ public class RegisterPassword extends JFrame {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Submit(username, password);
+				Submit(username, password, txtDomain.getText());
 			}
 		});
-		btnSubmit.setBounds(460, 521, 89, 23);
+		btnSubmit.setBounds(672, 521, 89, 23);
 		contentPane.add(btnSubmit);
 		
 		btnGeneratePassword = new JButton("Generate Password");
@@ -80,6 +82,16 @@ public class RegisterPassword extends JFrame {
 		});
 		btnGeneratePassword.setBounds(205, 521, 136, 23);
 		contentPane.add(btnGeneratePassword);
+		
+		txtDomain = new JTextField();
+		txtDomain.setText("Facebook");
+		txtDomain.setBounds(525, 521, 86, 20);
+		contentPane.add(txtDomain);
+		txtDomain.setColumns(10);
+		
+		JLabel lblDomain = new JLabel("Domain:");
+		lblDomain.setBounds(458, 525, 46, 14);
+		contentPane.add(lblDomain);
 		user = username;
 		labels = new JLabel[80];
 		this.setTitle("User: " + user);
@@ -125,7 +137,7 @@ public class RegisterPassword extends JFrame {
 		}
 	}
 	
-	public void Submit(String user, int[] password){
+	public void Submit(String user, int[] password, String domain){
 		if (password != null){
 			try{
 	    		//HARD CODED DATABASE NAME:
@@ -133,10 +145,11 @@ public class RegisterPassword extends JFrame {
 	    	       //create a statement object which will be used to relay a
 	    	       //sql query to the database
 	    		PreparedStatement prep = database.prepareStatement(
-			            "Insert or replace into UserAccounts (Username, Password) values (?, ?);");
+			            "Insert or replace into UserAccounts (Username, Domain, Password) values (?, ? , ?);");
 	    		
 	    		prep.setString(1, user);
-	    		prep.setString(2, Arrays.toString(password));
+	    		prep.setString(2, domain);
+	    		prep.setString(3, Arrays.toString(password));
 	    		prep.execute();
 	    		
 	    		}catch(SQLException ex){
@@ -144,7 +157,7 @@ public class RegisterPassword extends JFrame {
 	    		}
 			this.dispose();
 		}else{
-			JOptionPane.showMessageDialog(this,"You must first generate a password");
+			JOptionPane.showMessageDialog(this,"You must first generate a password and Your Domain for the Password must not be empty");
 		}
 	}
 	
@@ -156,5 +169,4 @@ public class RegisterPassword extends JFrame {
 		}
 		return false;
 	}
-
 }

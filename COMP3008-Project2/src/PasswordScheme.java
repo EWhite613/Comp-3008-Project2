@@ -37,6 +37,7 @@ public class PasswordScheme extends JFrame {
 	public Flag flags[];
 	public SelectableLabel labels[];
 	private String user;
+	private String Domain;
 	private int[] password;
 	public ImageCollection images;
 	/**
@@ -57,7 +58,8 @@ public class PasswordScheme extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PasswordScheme(String username) {
+	public PasswordScheme(String username, String dom) {
+		System.out.println("Domain is " + dom);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1215, 844);
@@ -80,6 +82,7 @@ public class PasswordScheme extends JFrame {
 		contentPane.add(GridPanel);
 		contentPane.add(btnSubmit);
 		user = username;
+		Domain = dom;
 		this.setTitle("User: " + user);
 		flags = new Flag[80];
 		images = new ImageCollection();
@@ -111,9 +114,10 @@ public class PasswordScheme extends JFrame {
     	       //create a statement object which will be used to relay a
     	       //sql query to the database
     		PreparedStatement prep = database.prepareStatement(
-		            "Select Password From UserAccounts where Username=?;");
+		            "Select Password From UserAccounts where Username=? and Domain=?;");
     		
     		prep.setString(1, user);
+    		prep.setString(2, Domain);
     		ResultSet rs = prep.executeQuery();
     		
     		rs.next();
