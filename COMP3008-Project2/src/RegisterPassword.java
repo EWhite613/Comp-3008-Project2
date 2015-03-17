@@ -20,6 +20,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import java.util.Arrays;
+
 import javax.swing.JTextField;
 
 
@@ -32,7 +33,8 @@ public class RegisterPassword extends JFrame {
 	public JLabel labels[];
 	private int password[];
 	private JTextField txtDomain;
-
+	public Flag flags[];
+	public ImageCollection images;
 	/**
 	 * Launch the application.
 	 */
@@ -54,14 +56,17 @@ public class RegisterPassword extends JFrame {
 	 */
 	public RegisterPassword(String username) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 835, 594);
+		setBounds(100, 100, 1215, 844);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		flags = new Flag[80];
+		images = new ImageCollection();
+		
 		GridPanel = new JPanel();
-		GridPanel.setBounds(10, 11, 799, 499);
+		GridPanel.setBounds(10, 11, 1159, 661);
 		contentPane.add(GridPanel);
 		GridPanel.setLayout(new GridLayout(10, 8, 3, 3));
 		
@@ -71,7 +76,7 @@ public class RegisterPassword extends JFrame {
 				Submit(username, password, txtDomain.getText());
 			}
 		});
-		btnSubmit.setBounds(672, 521, 89, 23);
+		btnSubmit.setBounds(757, 683, 89, 23);
 		contentPane.add(btnSubmit);
 		
 		btnGeneratePassword = new JButton("Generate Password");
@@ -80,17 +85,17 @@ public class RegisterPassword extends JFrame {
 				GeneratePassword();
 			}
 		});
-		btnGeneratePassword.setBounds(205, 521, 136, 23);
+		btnGeneratePassword.setBounds(369, 683, 136, 23);
 		contentPane.add(btnGeneratePassword);
 		
 		txtDomain = new JTextField();
 		txtDomain.setText("Facebook");
-		txtDomain.setBounds(525, 521, 86, 20);
+		txtDomain.setBounds(612, 684, 86, 20);
 		contentPane.add(txtDomain);
 		txtDomain.setColumns(10);
 		
 		JLabel lblDomain = new JLabel("Domain:");
-		lblDomain.setBounds(458, 525, 46, 14);
+		lblDomain.setBounds(556, 687, 46, 14);
 		contentPane.add(lblDomain);
 		user = username;
 		labels = new JLabel[80];
@@ -100,12 +105,15 @@ public class RegisterPassword extends JFrame {
 	
 	public void GenerateTable(){
 		for (int i = 0; i < 80; i++) {
-            JLabel l = new JLabel("" + i, JLabel.CENTER);
-            //JLabel l = new JLabel(new ImageIcon("image_file.png"), JLabel.CENTER);
-            l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-            l.setFont(l.getFont().deriveFont(20f));
-            labels[i] = l;
-            GridPanel.add(l);
+			//SelectableLabel l = new SelectableLabel("" + i, SelectableLabel.CENTER);
+            //SelectableLabel l = new SelectableLabel(images.array.get(i), SelectableLabel.CENTER);
+            //l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+            //l.setFont(l.getFont().deriveFont(20f));
+			Flag f = images.array.get(i);
+			f.setBounds(0, 0, 90, 90);
+            f.addMouseListener(new GridMouseListener(i, f));
+            flags[i] = f;
+            GridPanel.add(f);
         }	
 	}
 	
@@ -129,11 +137,11 @@ public class RegisterPassword extends JFrame {
 	}
 	
 	public void showPassword(){
-		for(JLabel l : labels){
-			l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+		for(Flag l : flags){
+			l.setBorder(null);
 		}
 		for (int place : password){
-			labels[place].setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLUE, Color.BLUE));
+			flags[place].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
 		}
 	}
 	
