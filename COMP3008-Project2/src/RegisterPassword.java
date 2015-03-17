@@ -111,7 +111,7 @@ public class RegisterPassword extends JFrame {
             //l.setFont(l.getFont().deriveFont(20f));
 			Flag f = images.array.get(i);
 			f.setBounds(0, 0, 90, 90);
-            f.addMouseListener(new GridMouseListener(i, f));
+            //f.addMouseListener(new GridMouseListener(i, f));
             flags[i] = f;
             GridPanel.add(f);
         }	
@@ -141,7 +141,7 @@ public class RegisterPassword extends JFrame {
 			l.setBorder(null);
 		}
 		for (int place : password){
-			flags[place].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+			flags[place].lblImage.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
 		}
 	}
 	
