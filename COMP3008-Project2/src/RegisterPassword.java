@@ -141,7 +141,7 @@ public class RegisterPassword extends JFrame {
 		if (password != null){
 			try{
 	    		//HARD CODED DATABASE NAME:
-	    		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2");
+	    		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
 	    	       //create a statement object which will be used to relay a
 	    	       //sql query to the database
 	    		PreparedStatement prep = database.prepareStatement(
