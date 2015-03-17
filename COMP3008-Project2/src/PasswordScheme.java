@@ -34,6 +34,7 @@ public class PasswordScheme extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel GridPanel;
+	public Flag flags[];
 	public SelectableLabel labels[];
 	private String user;
 	private int[] password;
@@ -59,17 +60,17 @@ public class PasswordScheme extends JFrame {
 	public PasswordScheme(String username) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 835, 594);
+		setBounds(100, 100, 1215, 844);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		GridPanel = new JPanel();
-		GridPanel.setBounds(10, 11, 809, 512);
+		GridPanel.setBounds(10, 11, 1175, 675);
 		GridPanel.setLayout(new GridLayout(10, 8, 3, 3));
 		
 		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(366, 531, 89, 23);
+		btnSubmit.setBounds(511, 697, 89, 23);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Submit();
@@ -80,7 +81,7 @@ public class PasswordScheme extends JFrame {
 		contentPane.add(btnSubmit);
 		user = username;
 		this.setTitle("User: " + user);
-		labels = new SelectableLabel[80];
+		flags = new Flag[80];
 		images = new ImageCollection();
 		GenerateTable();
 		password = getUserPassword(user);
@@ -91,12 +92,14 @@ public class PasswordScheme extends JFrame {
 	public void GenerateTable(){
 		for (int i = 0; i < 80; i++) {
 			//SelectableLabel l = new SelectableLabel("" + i, SelectableLabel.CENTER);
-            SelectableLabel l = new SelectableLabel(images.array.get(i), SelectableLabel.CENTER);
-            l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-            l.setFont(l.getFont().deriveFont(20f));
-            l.addMouseListener(new GridMouseListener(i, l));
-            labels[i] = l;
-            GridPanel.add(l);
+            //SelectableLabel l = new SelectableLabel(images.array.get(i), SelectableLabel.CENTER);
+            //l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+            //l.setFont(l.getFont().deriveFont(20f));
+			Flag f = images.array.get(i);
+			f.setBounds(0, 0, 90, 90);
+            f.addMouseListener(new GridMouseListener(i, f));
+            flags[i] = f;
+            GridPanel.add(f);
         }	
 	}
 	

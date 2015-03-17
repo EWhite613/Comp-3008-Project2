@@ -5,10 +5,11 @@ import javax.swing.ImageIcon;
 
 
 public class ImageCollection {
-	public ArrayList<ImageIcon> array;
+	public ArrayList<Flag> array;
+	
 	
 	public ImageCollection(){
-		array = new ArrayList<ImageIcon>();
+		array = new ArrayList<Flag>();
 		generateImages();
 	}
 	
@@ -18,7 +19,8 @@ public class ImageCollection {
 		
 		for( File f : listOfFiles){
 			System.out.println("Adding Image: " + f.getAbsolutePath());
-			array.add(new ImageIcon(f.getAbsolutePath()));
+			String country = f.getName();
+			array.add(new Flag(new ImageIcon(f.getAbsolutePath()), country));
 		}
 	}
 }
