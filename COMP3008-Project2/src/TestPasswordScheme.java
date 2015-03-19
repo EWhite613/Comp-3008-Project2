@@ -94,7 +94,7 @@ public class TestPasswordScheme extends JFrame {
 		images = new ImageCollection();
 		GenerateTable();
 		password = getUserPassword(user);
-		System.out.println(Arrays.toString(password));
+		System.out.println("[" + flags[password[0]].lblName.getText() + " , " + flags[password[1]].lblName.getText() + " , " + flags[password[2]].lblName.getText() + " , "+ flags[password[3]].lblName.getText() + " , " + flags[password[4]].lblName.getText() + " , " + flags[password[5]].lblName.getText() + " ] ");
 		
 	}
 	
@@ -194,8 +194,12 @@ public class TestPasswordScheme extends JFrame {
 		boolean result = checkPassword();
 		if (result == true){
 			if(currentDomain < 2){
-				
-				JOptionPane.showMessageDialog(this, "");
+				currentDomain++;
+				JOptionPane.showMessageDialog(this, "Success. Moving on to next password for the domain: " + Domains.get(currentDomain));
+				password = getUserPassword(user);
+				this.setTitle("User: " + user + ", Domain: " + Domains.get(currentDomain));
+				System.out.println("New Password: [" + flags[password[0]].lblName.getText() + " , " + flags[password[1]].lblName.getText() + " , " + flags[password[2]].lblName.getText() + " , "+ flags[password[3]].lblName.getText() + " , " + flags[password[4]].lblName.getText() + " , " + flags[password[5]].lblName.getText() + " ] ");
+
 			}else{
 				JOptionPane.showMessageDialog(this, "Password Successfully Entered!");
 			}
