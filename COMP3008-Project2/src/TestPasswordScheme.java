@@ -194,6 +194,7 @@ public class TestPasswordScheme extends JFrame {
 		boolean result = checkPassword();
 		if (result == true){
 			if(currentDomain < 2){
+				
 				JOptionPane.showMessageDialog(this, "");
 			}else{
 				JOptionPane.showMessageDialog(this, "Password Successfully Entered!");
