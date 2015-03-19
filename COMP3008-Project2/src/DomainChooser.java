@@ -29,6 +29,7 @@ public class DomainChooser extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public DomainChooser(String user) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -36,7 +37,7 @@ public class DomainChooser extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		this.user = user;
 		
 		cbDomain = new JComboBox<String>();

@@ -104,9 +104,9 @@ public class TestPasswordScheme extends JFrame {
 		
 		try{
     		//HARD CODED DATABASE NAME:
-    		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
     	       //create a statement object which will be used to relay a
     	       //sql query to the database
+			Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
     		PreparedStatement prep = database.prepareStatement(
 		            "Select Domain, Password From UserAccounts where Username=? order by rowid;");
     		
@@ -128,10 +128,13 @@ public class TestPasswordScheme extends JFrame {
     			}
     		}
     		
-    		
     		database.close();
+
+    		
     		}catch(SQLException ex){
     			ex.printStackTrace();
+    			
+    		}finally{
     			
     		}
 		

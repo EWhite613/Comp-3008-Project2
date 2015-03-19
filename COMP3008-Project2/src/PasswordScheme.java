@@ -172,10 +172,7 @@ public class PasswordScheme extends JFrame {
 		boolean result = checkPassword();
 		if (result == true){
 			JOptionPane.showMessageDialog(this, "Password Successfully Entered!");
-			for(Flag f : flags){
-				f.selected = false;
-				f.lblImage.setBorder(null);
-			}
+			this.dispose();
 		}else{
 			JOptionPane.showMessageDialog(this, "Password was Incorrect");
 			for(Flag f : flags){

@@ -27,6 +27,7 @@ public static void LogEvent(String user, String mode, String Event){
     		prep.execute();
     		
     		database.close();
+
     		
     		}catch(SQLException ex){
     			ex.printStackTrace();
