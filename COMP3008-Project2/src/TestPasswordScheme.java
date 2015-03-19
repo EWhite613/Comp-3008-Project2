@@ -42,6 +42,8 @@ public class TestPasswordScheme extends JFrame {
 	private String Domain;
 	private int[] password;
 	public ImageCollection images;
+	private int Success;
+	private int Failures;
 	/**
 	 * Launch the application.
 	 */
@@ -85,6 +87,8 @@ public class TestPasswordScheme extends JFrame {
 		contentPane.add(btnSubmit);
 		user = username;
 		getUserDomains(user);
+		this.Success = 0;
+		this.Failures = 0;
 		this.setTitle("User: " + user);
 		flags = new Flag[80];
 		images = new ImageCollection();
@@ -146,28 +150,8 @@ public class TestPasswordScheme extends JFrame {
 	}
 	
 	public int[] getUserPassword(String user){
-		
-		try{
-    		//HARD CODED DATABASE NAME:
-    		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
-    	       //create a statement object which will be used to relay a
-    	       //sql query to the database
-    		PreparedStatement prep = database.prepareStatement(
-		            "Select Password From UserAccounts where Username=? and Domain=?;");
+    		return StringtoIntArray(passwords.get(currentDomain));
     		
-    		prep.setString(1, user);
-    		prep.setString(2, Domain);
-    		ResultSet rs = prep.executeQuery();
-    		
-    		rs.next();
-    		String pass = rs.getString("Password");
-    		
-    		return StringtoIntArray(pass);
-    		
-    		}catch(SQLException ex){
-    			ex.printStackTrace();
-    			return null;
-    		}
 		
 	}
 	
@@ -209,9 +193,15 @@ public class TestPasswordScheme extends JFrame {
 	private void Submit(){
 		boolean result = checkPassword();
 		if (result == true){
-			JOptionPane.showMessageDialog(this, "Password Successfully Entered!");
+			if(currentDomain < 2){
+				JOptionPane.showMessageDialog(this, "");
+			}else{
+				JOptionPane.showMessageDialog(this, "Password Successfully Entered!");
+			}
+			Success++;
 		}else{
 			JOptionPane.showMessageDialog(this, "Password was Incorrect");
+			Failures++;
 		}
 	}
 }
