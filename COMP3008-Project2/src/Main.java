@@ -116,6 +116,8 @@ public class Main {
     			TestPasswordScheme t = new TestPasswordScheme(txtUsername.getText());
     			t.setVisible(true);
     		}
+    		
+    		database.close();
     		}catch(SQLException ex){
     			ex.printStackTrace();
     			
@@ -144,6 +146,7 @@ public class Main {
     			d.setVisible(true);
     			
     		}
+    		database.close();
     		}catch(SQLException ex){
     			ex.printStackTrace();
     			
