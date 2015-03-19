@@ -138,7 +138,7 @@ public class RegisterPassword extends JFrame {
 	
 	public void showPassword(){
 		for(Flag l : flags){
-			l.setBorder(null);
+			l.lblImage.setBorder(null);
 		}
 		for (int place : password){
 			flags[place].lblImage.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
