@@ -74,7 +74,11 @@ public class Main {
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				register();
+				if ( txtUsername.getText().isEmpty()){
+					javax.swing.JOptionPane.showMessageDialog(null, "Please type in a user name!");
+				}else{
+					register();
+				}
 			}
 		});
 		btnRegister.setBounds(109, 117, 89, 23);
