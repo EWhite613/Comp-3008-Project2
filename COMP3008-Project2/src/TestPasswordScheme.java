@@ -65,7 +65,7 @@ public class TestPasswordScheme extends JFrame {
 	public TestPasswordScheme(String username) {
 		
 		setResizable(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1215, 844);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -94,6 +94,7 @@ public class TestPasswordScheme extends JFrame {
 		images = new ImageCollection();
 		GenerateTable();
 		password = getUserPassword(user);
+		this.setTitle("User: " + user + ", Domain: " + Domains.get(currentDomain));
 		System.out.println("[" + flags[password[0]].lblName.getText() + " , " + flags[password[1]].lblName.getText() + " , " + flags[password[2]].lblName.getText() + " , "+ flags[password[3]].lblName.getText() + " , " + flags[password[4]].lblName.getText() + " , " + flags[password[5]].lblName.getText() + " ] ");
 		
 	}
@@ -201,7 +202,7 @@ public class TestPasswordScheme extends JFrame {
 				System.out.println("New Password: [" + flags[password[0]].lblName.getText() + " , " + flags[password[1]].lblName.getText() + " , " + flags[password[2]].lblName.getText() + " , "+ flags[password[3]].lblName.getText() + " , " + flags[password[4]].lblName.getText() + " , " + flags[password[5]].lblName.getText() + " ] ");
 
 			}else{
-				JOptionPane.showMessageDialog(this, "Password Successfully Entered!");
+				JOptionPane.showMessageDialog(this, "All Passwords Successfully Entered!");
 			}
 			Success++;
 		}else{
