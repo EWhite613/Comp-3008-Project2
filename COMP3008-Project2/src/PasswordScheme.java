@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -61,7 +62,7 @@ public class PasswordScheme extends JFrame {
 	public PasswordScheme(String username, String dom) {
 		System.out.println("Domain is " + dom);
 		setResizable(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1215, 844);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -171,8 +172,16 @@ public class PasswordScheme extends JFrame {
 		boolean result = checkPassword();
 		if (result == true){
 			JOptionPane.showMessageDialog(this, "Password Successfully Entered!");
+			for(Flag f : flags){
+				f.selected = false;
+				f.lblImage.setBorder(null);
+			}
 		}else{
 			JOptionPane.showMessageDialog(this, "Password was Incorrect");
+			for(Flag f : flags){
+				f.selected = false;
+				f.lblImage.setBorder(null);
+			}
 		}
 	}
 }
