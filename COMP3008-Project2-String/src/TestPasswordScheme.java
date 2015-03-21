@@ -119,6 +119,7 @@ public class TestPasswordScheme extends JFrame {
     				count++;
     			}
     		}
+    		database.close();
     	}catch(SQLException ex){
     			ex.printStackTrace();	
     	}
