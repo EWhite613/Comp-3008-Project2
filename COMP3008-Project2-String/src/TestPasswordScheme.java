@@ -89,6 +89,7 @@ public class TestPasswordScheme extends JFrame {
 		});
 		btnSubmit.setBounds(154, 160, 117, 29);
 		panel.add(btnSubmit);
+		Logger.LogEvent(userName, "Login", "Start");
 	}
 	
 	public void getUserDomains(String user){
@@ -130,16 +131,20 @@ public class TestPasswordScheme extends JFrame {
 	private void Submit(){
 		if (password.equals(textField.getText())){
 			if(currentDomain < 2){
+				Logger.LogEvent(userName, "Login", "Success");
+				Logger.LogEvent(userName, "Login", "Start");
 				currentDomain++;
 				JOptionPane.showMessageDialog(this, "Success. Moving on to next password for the domain: " + domains.get(currentDomain));
 				password = getUserPassword(userName);
 				this.setTitle("User: " + userName + ", Domain: " + domains.get(currentDomain));
 			}else{
+				Logger.LogEvent(userName, "Login", "Success");
 				JOptionPane.showMessageDialog(this, "All Passwords Successfully Entered!");
 				this.dispose();
 			}
 			Success++;
 		}else{
+			Logger.LogEvent(userName, "Login", "Failure");
 			JOptionPane.showMessageDialog(this, "Password was Incorrect");
 			Failures++;
 		}
