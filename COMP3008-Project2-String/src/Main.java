@@ -116,6 +116,7 @@ public class Main {
     			d.setVisible(true);
     			
     		}
+    		database.close();
     		}catch(SQLException ex){
     			ex.printStackTrace();		
     	}
@@ -142,9 +143,11 @@ public class Main {
     		int counter =rs.getInt("count(Domain)");
     		if (counter == 0 || counter <3){
     			JOptionPane.showMessageDialog(frmLogin, "You must first register a password for this user. And have three different domain passwords");
+    			database.close();
     		}else{
     			//PasswordScheme p = new PasswordScheme(txtUsername.getText());
     			//p.setVisible(true);
+    			database.close();
     			TestPasswordScheme t = new TestPasswordScheme(txtUsername.getText());
     			t.setVisible(true);
     		}
