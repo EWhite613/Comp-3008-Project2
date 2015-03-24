@@ -35,24 +35,10 @@ public class RegisterPassword extends JFrame {
 	private JTextField txtDomain;
 	public Flag flags[];
 	public ImageCollection images;
-	/**
-	 * Launch the application.
-	 */
-/*	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterPassword frame = new RegisterPassword();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
+	
 	/**
 	 * Create the frame.
+	 * @param username: User to register password for
 	 */
 	public RegisterPassword(String username) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -102,29 +88,32 @@ public class RegisterPassword extends JFrame {
 		this.setTitle("User: " + user);
 		GenerateTable();
 	}
-	
+	/**
+	 * Populate the grid with Flags
+	 */
 	public void GenerateTable(){
 		for (int i = 0; i < 80; i++) {
-			//SelectableLabel l = new SelectableLabel("" + i, SelectableLabel.CENTER);
-            //SelectableLabel l = new SelectableLabel(images.array.get(i), SelectableLabel.CENTER);
-            //l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-            //l.setFont(l.getFont().deriveFont(20f));
 			Flag f = images.array.get(i);
 			f.setBounds(0, 0, 90, 90);
-            //f.addMouseListener(new GridMouseListener(i, f));
             flags[i] = f;
             GridPanel.add(f);
         }	
 	}
 	
+	/**
+	 * Generate a random password
+	 */
 	public void GeneratePassword(){
 		password = new int[6];
 		Random randomGenerator = new Random();
 		boolean con = true;
 		int randomInt = 0;
 	    for (int idx = 0; idx < 6; ++idx){
-	      while (con == true){
+	    	 //if the cell is already included in the password do not include again. Generate a new number.
+	    	while (con == true){
 	    	 randomInt = randomGenerator.nextInt(80);
+	    	 
+	    	//if cell is not in password then include it
 	    	 if (contains(password, randomInt) == false){
 	    		 break;
 	    	 }
@@ -132,26 +121,36 @@ public class RegisterPassword extends JFrame {
 	      password[idx] = randomInt;
 	    }
 	    System.out.println(Arrays.toString(password));
-	    
+	    //Show the password to the user
 	    showPassword();
 	}
 	
+	/**
+	 * Make the password visible to the user
+	 */
 	public void showPassword(){
+		//Reset Grid
 		for(Flag l : flags){
 			l.lblImage.setBorder(null);
 		}
+		//Show password by setting border around Flag image to green
 		for (int place : password){
 			flags[place].lblImage.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
 		}
 	}
-	
+	/**
+	 * Submit Button Listener: store users password for given domain
+	 * @param user: given user
+	 * @param password: given password
+	 * @param domain: domain the user would like to save the password to
+	 */
 	public void Submit(String user, int[] password, String domain){
+		//if password is nothing then display a message box and don't submit to database
 		if (password != null){
 			try{
 	    		//HARD CODED DATABASE NAME:
 	    		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
-	    	       //create a statement object which will be used to relay a
-	    	       //sql query to the database
+	    	    //Insert/Replace Password in Database given the primary key (Username, Domain)    
 	    		PreparedStatement prep = database.prepareStatement(
 			            "Insert or replace into UserAccounts (Username, Domain, Password) values (?, ? , ?);");
 	    		
@@ -163,12 +162,19 @@ public class RegisterPassword extends JFrame {
 	    		}catch(SQLException ex){
 	    			ex.printStackTrace();
 	    		}
+			//Close the frame
 			this.dispose();
 		}else{
 			JOptionPane.showMessageDialog(this,"You must first generate a password and Your Domain for the Password must not be empty");
 		}
 	}
 	
+	/**
+	 * Check if an integer is in an integer array 
+	 * @param arr: Array to check
+	 * @param i: Integer to check if in the array
+	 * @return: boolean that represents wether the array contains the integer or not
+	 */
 	public boolean contains(int[] arr, int i){
 		for (int e : arr){
 			if(e == i){

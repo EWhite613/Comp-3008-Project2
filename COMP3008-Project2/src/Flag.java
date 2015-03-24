@@ -5,6 +5,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
+/**
+ * 
+ * Panel to represent individual flags. Each panel has the image of a flag and label that tells the country the flag represents
+ *
+ */
 public class Flag extends JPanel {
 	
 	public JLabel lblImage;
@@ -13,6 +18,8 @@ public class Flag extends JPanel {
 	public boolean selected;
 	/**
 	 * Create the panel.
+	 * @param f: the image of the flag
+	 * @param Country: The Country associated with the given flag
 	 */
 	public Flag(ImageIcon f, String Country) {
 		setLayout(null);
@@ -26,7 +33,7 @@ public class Flag extends JPanel {
 		lblImage = new JLabel(f);
 		lblImage.setBounds(0, 0, 80, 55);
 		add(lblImage);
-		System.out.println("Image Size: " + lblImage.getSize().toString());
+		//System.out.println("Image Size: " + lblImage.getSize().toString());
 		
 		Country = Country.replace(".png", "");
 		Country = Country.replace("_", " ");

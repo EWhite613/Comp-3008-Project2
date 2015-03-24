@@ -15,6 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
+/**
+ * Initial Login Frame that present the option of Registering a password, testing a password, and password testing framework that applies to the project guidelines
+ */
 public class Main {
 
 	private JFrame frmLogin;
@@ -94,12 +97,15 @@ public class Main {
 		frmLogin.getContentPane().add(btnTestPasswordScheme);
 	}
 	
+	/**
+	 * Test Password Scheme Button Listener: Launch the Frame that tests password according to project guidelines
+	 */
 	public void testPasswordScheme(){
 		try{
     		//HARD CODED DATABASE NAME:
     		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
-    	       //create a statement object which will be used to relay a
-    	       //sql query to the database
+    	    
+    		//SQL query that gets the of password domains a user has
     		PreparedStatement prep = database.prepareStatement(
 		            "Select count(Domain) From UserAccounts where Username=?;");
     		
@@ -108,13 +114,15 @@ public class Main {
     		
     		rs.next();
     		int counter =rs.getInt("count(Domain)");
-    		if (counter == 0 || counter <3){
+    		//if the user has less than 3 passwords they cannot Test the password scheme
+    		if (counter <3){
         		database.close();
     			JOptionPane.showMessageDialog(frmLogin, "You must first register a password for this user. And have three different domain passwords");
     		}else{
-    			//PasswordScheme p = new PasswordScheme(txtUsername.getText());
-    			//p.setVisible(true);
+    				
     			database.close();
+    			
+    			//User has 3 or more password so we can launch the Test Password Scheme
     			TestPasswordScheme t = new TestPasswordScheme(txtUsername.getText());
     			t.setVisible(true);
     		}
@@ -125,27 +133,28 @@ public class Main {
     		}
 	}
 	
+	/**
+	 * Login Button Listener: Bring user to Domain Chooser to test individual passwords
+	 */
 	public void login(){
 		try{
     		//HARD CODED DATABASE NAME:
     		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
-    	       //create a statement object which will be used to relay a
-    	       //sql query to the database
+    	    //SQL query that gets passwords for a user
     		PreparedStatement prep = database.prepareStatement(
 		            "Select Password From UserAccounts where Username=?;");
     		
     		prep.setString(1, txtUsername.getText());
     		ResultSet rs = prep.executeQuery();
     		
-    		
+    		//If a user has no password then they cannot proceed in login
     		if (!rs.next()){
         		database.close();
     			JOptionPane.showMessageDialog(frmLogin, "You must first register a password for this user.");
     		}else{
-    			//PasswordScheme p = new PasswordScheme(txtUsername.getText());
-    			//p.setVisible(true);
-        		database.close();
+    			database.close();
         		
+    			//Display another Frame that allows user to choose the domain of the password they wish to test
     			DomainChooser d = new DomainChooser(txtUsername.getText());
     			d.setVisible(true);
     			
@@ -158,8 +167,14 @@ public class Main {
 		
 		
 	}
+	/**
+	 * Register button Click Listener: Create Password for given user on a domain of their choosing
+	 */
 	public void register(){
-		RegisterPassword r = new RegisterPassword(txtUsername.getText());
-		r.setVisible(true);
+		//If the username is provided display the Register Password Frame for the user
+		if (txtUsername.getText() == ""){
+			RegisterPassword r = new RegisterPassword(txtUsername.getText());
+			r.setVisible(true);
+		}
 	}
 }
