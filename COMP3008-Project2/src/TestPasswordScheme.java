@@ -44,23 +44,11 @@ public class TestPasswordScheme extends JFrame {
 	public ImageCollection images;
 	private int Success;
 	private int Failures;
-	/**
-	 * Launch the application.
-	 */
-	
-	/*public void run() {
-		try {
-			PasswordScheme frame = new PasswordScheme();
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	} */
-		
 	
 
 	/**
 	 * Create the frame.
+	 * @param username: User testing the password scheme
 	 */
 	public TestPasswordScheme(String username) {
 		
@@ -94,25 +82,32 @@ public class TestPasswordScheme extends JFrame {
 		images = new ImageCollection();
 		GenerateTable();
 		password = getUserPassword(user);
+		
+		//Log that the user has started the test password scheme process
 		Logger.LogEvent(user, "Login", "Start");
+		
 		this.setTitle("User: " + user + ", Domain: " + Domains.get(currentDomain));
 		System.out.println("[" + flags[password[0]].lblName.getText() + " , " + flags[password[1]].lblName.getText() + " , " + flags[password[2]].lblName.getText() + " , "+ flags[password[3]].lblName.getText() + " , " + flags[password[4]].lblName.getText() + " , " + flags[password[5]].lblName.getText() + " ] ");
 		
 	}
 	
+	/**
+	 * Get User Passwords for 3 domains
+	 * @param user: User to get passwords from
+	 */
 	public void getUserDomains(String user){
 		
 		try{
     		//HARD CODED DATABASE NAME:
-    	       //create a statement object which will be used to relay a
-    	       //sql query to the database
 			Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
-    		PreparedStatement prep = database.prepareStatement(
+    		//SQL query, get user Domain passwords. Ordered by the time entered ( rowid is a column on every table in sqlite).
+			PreparedStatement prep = database.prepareStatement(
 		            "Select Domain, Password From UserAccounts where Username=? order by rowid;");
     		
     		prep.setString(1, user);
     		
     		ResultSet rs = prep.executeQuery();
+    		//Initialize Arrays of Domains, and Passwords
     		Domains = new ArrayList<String>();
     		passwords = new ArrayList<String>();
     		
@@ -122,6 +117,8 @@ public class TestPasswordScheme extends JFrame {
     			if (count > 2){
     				break;
     			}else{
+    				//Add Password and domain to respective arrays
+    				// Passwords[i] is linked to Domains[i]
     				Domains.add(rs.getString("Domain"));
     				passwords.add(rs.getString("Password"));
     				count++;
@@ -140,31 +137,43 @@ public class TestPasswordScheme extends JFrame {
 		
 	}
 	
+	/**
+	 * Populate Datagrid with Flags
+	 */
 	public void GenerateTable(){
 		for (int i = 0; i < 80; i++) {
-			//SelectableLabel l = new SelectableLabel("" + i, SelectableLabel.CENTER);
-            //SelectableLabel l = new SelectableLabel(images.array.get(i), SelectableLabel.CENTER);
-            //l.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-            //l.setFont(l.getFont().deriveFont(20f));
+			//get image from ImagesCollection
 			Flag f = images.array.get(i);
 			f.setBounds(0, 0, 90, 90);
+			//Add action listener GridMouseListener to individual flag
             f.addMouseListener(new GridMouseListener(i, f));
             flags[i] = f;
+            //add to panel
             GridPanel.add(f);
         }	
 	}
 	
+	/**
+	 * Get users password for the current domain they are testing
+	 * @param user: user to get password for
+	 * @return integer array representing the users password for the current domain
+	 */
 	public int[] getUserPassword(String user){
-    		return StringtoIntArray(passwords.get(currentDomain));
-    		
-		
+    		return StringtoIntArray(passwords.get(currentDomain));		
 	}
-	
+	/**
+	 * Convert String to integer array
+	 * @param arr: Integer array in String Format
+	 * @return Integer array that matches given array
+	 */
 	public int[] StringtoIntArray(String arr){
+		//Remove garbage charaters so form is in "3,2,5". Then split the string on comma.
 		String[] items = arr.replaceAll("\\[", "").replaceAll("\\]", "").replace(" ", "").split(",");
-
+		
+		//Intialize integer array so it is the same length as the new string array
 		int[] results = new int[items.length];
-
+		
+		//Convert string to integer and store in the integer array
 		for (int i = 0; i < items.length; i++) {
 		    try {
 		        results[i] = Integer.parseInt(items[i]);
@@ -173,14 +182,21 @@ public class TestPasswordScheme extends JFrame {
 		return results;
 	}
 	
+	/**
+	 * Check if the user submitted password matches the one in the database
+	 * @return Return true if given password matches on in the database
+	 */
 	public boolean checkPassword(){
 		int[] result = new int[6];
 		int count = 0;
+		
+		//Get user submitted password and store in result
 		for(int i=0;i<80;i++){
 			Flag l = flags[i];
 			if (l.selected == true){
 				//selected
 				if (count > 5){
+					//If the submitted password has more than 6 elements return false since passwords are only 6 elements
 					return false;
 				}else{
 					result[count] = i;
@@ -189,16 +205,22 @@ public class TestPasswordScheme extends JFrame {
 				
 			}
 		}
+		//Sort Arrays since equals looks at order and elements
 		Arrays.sort(password);
 		Arrays.sort(result);
+		
 		System.out.println("Password: " + Arrays.toString(password) + " Result: " + Arrays.toString(result));
 		return Arrays.equals(password,result);
 	}
 	
+	/**
+	 * Submit button Action Listener: User wants to check if submitted password is correct
+	 */
 	private void Submit(){
 		boolean result = checkPassword();
 		if (result == true){
 			if(currentDomain < 2){
+				//If there are more domain to test, move onto the next domain.
 				currentDomain++;
 				JOptionPane.showMessageDialog(this, "Success. Moving on to next password for the domain: " + Domains.get(currentDomain));
 				password = getUserPassword(user);
@@ -208,19 +230,25 @@ public class TestPasswordScheme extends JFrame {
 					f.selected = false;
 					f.lblImage.setBorder(null);
 				}
+				//Log that the user success fully logged in
 				Logger.LogEvent(user, "Login", "Success");
+				//Log that the user is starting a new login
 				Logger.LogEvent(user, "Login", "Start");
 				System.out.println("New Password: [" + flags[password[0]].lblName.getText() + " , " + flags[password[1]].lblName.getText() + " , " + flags[password[2]].lblName.getText() + " , "+ flags[password[3]].lblName.getText() + " , " + flags[password[4]].lblName.getText() + " , " + flags[password[5]].lblName.getText() + " ] ");
 
 			}else{
+				//User finished the final domain
 				JOptionPane.showMessageDialog(this, "All Passwords Successfully Entered!");
+				//Log that the user successfully logged in
 				Logger.LogEvent(user, "Login", "Success");
 			}
 			Success++;
 		}else{
+			//The user failed to submit a correct password
 			JOptionPane.showMessageDialog(this, "Password was Incorrect");
+			//Log that the user failed their login
 			Logger.LogEvent(user, "Login", "Failure");
-			Logger.LogEvent(user, "Login", "Start");
+			//Logger.LogEvent(user, "Login", "Start");
 			Failures++;
 		}
 	}
