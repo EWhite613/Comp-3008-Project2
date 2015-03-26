@@ -84,13 +84,13 @@ public class Main {
 		btnRegister.setBounds(109, 117, 89, 23);
 		frmLogin.getContentPane().add(btnRegister);
 		
-		JButton btnTest = new JButton("Test Passwords");
+		JButton btnTest = new JButton("Test Password Scheme");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				testPasswordScheme();
 			}
 		});
-		btnTest.setBounds(158, 178, 117, 40);
+		btnTest.setBounds(109, 178, 213, 40);
 		frmLogin.getContentPane().add(btnTest);
 	}
 	
