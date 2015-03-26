@@ -66,21 +66,21 @@ public class TestPasswordScheme extends JFrame {
 		setContentPane(contentPane);
 		password = getUserPassword(user);
 		this.setTitle("User: " + user + ", Domain: " + domains.get(currentDomain));
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		
+
 		textField = new JTextField();
 		textField.setBounds(189, 100, 134, 28);
 		panel.add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPassword.setBounds(91, 106, 96, 16);
 		panel.add(lblPassword);
-		
+
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -91,9 +91,13 @@ public class TestPasswordScheme extends JFrame {
 		panel.add(btnSubmit);
 		Logger.LogEvent(userName, "Login", "Start");
 	}
-	
+
+	/**
+	 * Get User's first 3 domains and Passwords for 3 domains
+	 * @param user: User to get passwords from
+	 */
 	public void getUserDomains(String user){
-		
+
 		try{
     		//HARD CODED DATABASE NAME:
     		Connection database = DriverManager.getConnection("jdbc:sqlite:Project2.data");
@@ -101,15 +105,15 @@ public class TestPasswordScheme extends JFrame {
     	       //sql query to the database
     		PreparedStatement prep = database.prepareStatement(
 		            "Select Domain, Password From UserAccounts where Username=? order by rowid;");
-    		
+
     		prep.setString(1, user);
-    		
+
     		ResultSet rs = prep.executeQuery();
     		domains = new ArrayList<String>();
     		passwords = new ArrayList<String>();
-    		
+
     		int count = 0;
-    		
+
     		while(rs.next()){
     			if (count > 2){
     				break;
@@ -121,14 +125,18 @@ public class TestPasswordScheme extends JFrame {
     		}
     		database.close();
     	}catch(SQLException ex){
-    			ex.printStackTrace();	
+    			ex.printStackTrace();
     	}
 	}
-	
+
+	/**
+	 * Get User Passwords for current domain
+	 */
 	public String getUserPassword(String user){
 		return passwords.get(currentDomain);
     }
-	
+
+	//submit button handler
 	private void Submit(){
 		if (password.equals(textField.getText())){
 			if(currentDomain < 2){

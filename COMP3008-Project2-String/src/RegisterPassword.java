@@ -24,7 +24,7 @@ import java.awt.Font;
 public class RegisterPassword extends JFrame {
 
 	private JPanel contentPane;
-	private  String userName; 
+	private  String userName;
 	private JTextField txtDomain;
 	private String password;
 
@@ -56,18 +56,18 @@ public class RegisterPassword extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		
+
 		pwdGen();
 		JLabel lblPwd = new JLabel(password);
 		lblPwd.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		lblPwd.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPwd.setBounds(100, 58, 223, 43);
 		panel.add(lblPwd);
-		
+
 		JButton btnGeneratePassword = new JButton("Generate Password");
 		btnGeneratePassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -77,18 +77,18 @@ public class RegisterPassword extends JFrame {
 		});
 		btnGeneratePassword.setBounds(133, 118, 162, 29);
 		panel.add(btnGeneratePassword);
-		
+
 		txtDomain = new JTextField();
 		txtDomain.setText("Facebook");
 		txtDomain.setBounds(189, 185, 134, 28);
 		panel.add(txtDomain);
 		txtDomain.setColumns(10);
-		
+
 		JLabel lblDomain = new JLabel("Domain:");
 		lblDomain.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDomain.setBounds(93, 191, 94, 16);
 		panel.add(lblDomain);
-		
+
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -100,7 +100,8 @@ public class RegisterPassword extends JFrame {
 
 		this.setTitle("User: " + userName);
 	}
-	
+
+	//generate a random 6-digit lower-case password
 	public void pwdGen(){
 		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 		StringBuilder sb = new StringBuilder();
@@ -111,7 +112,8 @@ public class RegisterPassword extends JFrame {
 		}
 		password = sb.toString();
 	}
-	
+
+	//submit button handler
 	public void Submit(String user, String password, String domain){
 		if (password != null){
 			try{
@@ -121,12 +123,12 @@ public class RegisterPassword extends JFrame {
 	    	       //sql query to the database
 	    		PreparedStatement prep = database.prepareStatement(
 			            "Insert or replace into UserAccounts (Username, Domain, Password) values (?, ? , ?);");
-	    		
+
 	    		prep.setString(1, user);
 	    		prep.setString(2, domain);
 	    		prep.setString(3, password);
 	    		prep.execute();
-	    		
+
 	    		}catch(SQLException ex){
 	    			ex.printStackTrace();
 	    		}
