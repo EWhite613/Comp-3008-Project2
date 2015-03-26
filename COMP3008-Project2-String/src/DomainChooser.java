@@ -24,7 +24,7 @@ public class DomainChooser extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
+
 
 	/**
 	 * Create the frame.
@@ -37,13 +37,13 @@ public class DomainChooser extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		this.user = user;
-		
+
 		cbDomain = new JComboBox<String>();
 		cbDomain.setBounds(150, 104, 167, 20);
 		contentPane.add(cbDomain);
-		
+
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -53,10 +53,14 @@ public class DomainChooser extends JFrame {
 		});
 		btnSubmit.setBounds(190, 173, 89, 23);
 		contentPane.add(btnSubmit);
-		
+
 		PopulateCombobox();
 	}
-	
+
+
+	/**
+	 * Populate Combobox with domains the user has created passwords for
+	 */
 	public void PopulateCombobox(){
 		try{
     		//HARD CODED DATABASE NAME:
@@ -65,16 +69,16 @@ public class DomainChooser extends JFrame {
     	       //sql query to the database
     		PreparedStatement prep = database.prepareStatement(
 		            "Select Domain From UserAccounts where Username=?;");
-    		
+
     		prep.setString(1, user);
     		ResultSet rs = prep.executeQuery();
-    		
+
     		while( rs.next()){
     			String dom = rs.getString("Domain");
     			System.out.println(dom);
     			cbDomain.addItem(dom);
     		}
-    		
+
     		}catch(SQLException ex){
     			ex.printStackTrace();
     		}

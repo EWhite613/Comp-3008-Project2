@@ -52,16 +52,18 @@ public class Main {
 		frmLogin.setBounds(100, 100, 450, 300);
 		frmLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmLogin.getContentPane().setLayout(null);
-		
+
 		JLabel lblUser = new JLabel("User: ");
 		lblUser.setBounds(102, 71, 46, 14);
 		frmLogin.getContentPane().add(lblUser);
-		
+
+		//text field to get user name
 		txtUsername = new JTextField();
 		txtUsername.setBounds(158, 68, 86, 20);
 		frmLogin.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
-		
+
+		//login button
 		JButton btnSubmit = new JButton("Login");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -70,7 +72,8 @@ public class Main {
 		});
 		btnSubmit.setBounds(233, 117, 89, 23);
 		frmLogin.getContentPane().add(btnSubmit);
-		
+
+		//register button
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +86,8 @@ public class Main {
 		});
 		btnRegister.setBounds(109, 117, 89, 23);
 		frmLogin.getContentPane().add(btnRegister);
-		
+
+		//button to open test frame
 		JButton btnTest = new JButton("Test Passwords");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,7 +97,9 @@ public class Main {
 		btnTest.setBounds(158, 178, 117, 40);
 		frmLogin.getContentPane().add(btnTest);
 	}
-	
+
+
+	//login button handler
 	public void login(){
 		try{
     		//HARD CODED DATABASE NAME:
@@ -102,31 +108,33 @@ public class Main {
     	       //sql query to the database
     		PreparedStatement prep = database.prepareStatement(
 		            "Select Password From UserAccounts where Username=?;");
-    		
+
     		prep.setString(1, txtUsername.getText());
     		ResultSet rs = prep.executeQuery();
-    		
-    		
-    		if (!rs.next()){
+
+
+    		if (!rs.next()){//the user name input is not registered yet
     			JOptionPane.showMessageDialog(frmLogin, "You must first register a password for this user.");
     		}else{
-    			//PasswordScheme p = new PasswordScheme(txtUsername.getText());
-    			//p.setVisible(true);
+    			//go to domain choosing frame
     			DomainChooser d = new DomainChooser(txtUsername.getText());
     			d.setVisible(true);
-    			
+
     		}
     		database.close();
     		}catch(SQLException ex){
-    			ex.printStackTrace();		
+    			ex.printStackTrace();
     	}
 	}
-	
+
+	//register button handler
 	public void register(){
+		//go to register frame
 		RegisterPassword r = new RegisterPassword(txtUsername.getText());
 		r.setVisible(true);
 	}
-	
+
+	//test button handler
 	public void testPasswordScheme(){
 		try{
     		//HARD CODED DATABASE NAME:
@@ -135,25 +143,24 @@ public class Main {
     	       //sql query to the database
     		PreparedStatement prep = database.prepareStatement(
 		            "Select count(Domain) From UserAccounts where Username=?;");
-    		
+
     		prep.setString(1, txtUsername.getText());
     		ResultSet rs = prep.executeQuery();
-    		
+
     		rs.next();
     		int counter =rs.getInt("count(Domain)");
-    		if (counter == 0 || counter <3){
+    		if (counter == 0 || counter <3){//when the user has less than 3 registered domains
     			JOptionPane.showMessageDialog(frmLogin, "You must first register a password for this user. And have three different domain passwords");
     			database.close();
     		}else{
-    			//PasswordScheme p = new PasswordScheme(txtUsername.getText());
-    			//p.setVisible(true);
+    			//go to test frame
     			database.close();
     			TestPasswordScheme t = new TestPasswordScheme(txtUsername.getText());
     			t.setVisible(true);
     		}
     		}catch(SQLException ex){
     			ex.printStackTrace();
-    			
+
     		}
 	}
 }
