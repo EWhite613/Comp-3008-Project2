@@ -122,6 +122,7 @@ public class PasswordScheme extends JFrame {
     		
     		rs.next();
     		String pass = rs.getString("Password");
+    		database.close();
     		//Convert Text to int[]
     		return StringtoIntArray(pass);
     		

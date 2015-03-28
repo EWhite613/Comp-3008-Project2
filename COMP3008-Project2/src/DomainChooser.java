@@ -76,7 +76,7 @@ public class DomainChooser extends JFrame {
     			//Add item to combobox
     			cbDomain.addItem(dom);
     		}
-    		
+    		database.close();
     		}catch(SQLException ex){
     			ex.printStackTrace();
     		}

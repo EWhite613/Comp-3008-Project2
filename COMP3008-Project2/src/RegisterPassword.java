@@ -159,6 +159,7 @@ public class RegisterPassword extends JFrame {
 	    		prep.setString(3, Arrays.toString(password));
 	    		prep.execute();
 	    		
+	    		database.close();
 	    		}catch(SQLException ex){
 	    			ex.printStackTrace();
 	    		}
