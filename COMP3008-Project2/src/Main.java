@@ -172,9 +172,9 @@ public class Main {
 	 */
 	public void register(){
 		//If the username is provided display the Register Password Frame for the user
-		if (txtUsername.getText() == ""){
-			RegisterPassword r = new RegisterPassword(txtUsername.getText());
-			r.setVisible(true);
-		}
+		
+		RegisterPassword r = new RegisterPassword(txtUsername.getText());
+		r.setVisible(true);
+		
 	}
 }
