@@ -250,6 +250,11 @@ public class TestPasswordScheme extends JFrame {
 			Logger.LogEvent(user, "Login", "Failure");
 			//Logger.LogEvent(user, "Login", "Start");
 			Failures++;
+			//Reset clicked items
+			for(Flag f : flags){
+				f.selected = false;
+				f.lblImage.setBorder(null);
+			}
 		}
 	}
 }
