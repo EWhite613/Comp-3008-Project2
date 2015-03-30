@@ -83,7 +83,7 @@ public class PasswordScheme extends JFrame {
 		GenerateTable();
 		password = getUserPassword(user);
 		System.out.println(Arrays.toString(password));
-		
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 	
 	/**

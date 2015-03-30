@@ -88,7 +88,7 @@ public class TestPasswordScheme extends JFrame {
 		
 		this.setTitle("User: " + user + ", Domain: " + Domains.get(currentDomain));
 		System.out.println("[" + flags[password[0]].lblName.getText() + " , " + flags[password[1]].lblName.getText() + " , " + flags[password[2]].lblName.getText() + " , "+ flags[password[3]].lblName.getText() + " , " + flags[password[4]].lblName.getText() + " , " + flags[password[5]].lblName.getText() + " ] ");
-		
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 	
 	/**

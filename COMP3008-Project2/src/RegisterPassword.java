@@ -87,6 +87,7 @@ public class RegisterPassword extends JFrame {
 		labels = new JLabel[80];
 		this.setTitle("User: " + user);
 		GenerateTable();
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 	/**
 	 * Populate the grid with Flags
